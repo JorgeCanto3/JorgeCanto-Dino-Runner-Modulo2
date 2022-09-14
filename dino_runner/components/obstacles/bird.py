@@ -1,10 +1,11 @@
 from dino_runner.utils.constants import BIRD
 
 class bird:
-    def __init__(self) -> None:
-        pass
-    def fly (self):
-        
+    def __init__(self):
+        self.step_index	= 0
+        self.rect.y = 250
+
+    def draw(self):
         self.image = BIRD[0] if self.index < 5 else BIRD[1]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POS
