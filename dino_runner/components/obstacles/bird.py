@@ -1,13 +1,22 @@
+import random
+
 from dino_runner.utils.constants import BIRD
+from dino_runner.components.obstacles.obstacle import Obstacle
 
-class bird:
-    def __init__(self):
-        self.step_index	= 0
-        self.rect.y = 250
 
-    def draw(self):
-        self.image = BIRD[0] if self.index < 5 else BIRD[1]
-        self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS
-        self.dino_rect.y = self.Y_POS_DUCK
+class bird(Obstacle):
+
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y =  random.randint(250,325)
+        self.step_index = 0
+
+    def draw(self, screen):
+        if self.step_index >= 10:
+            self.step_index = 0
+        screen.blit(self.image[self.step_index<5], self.rect)
         self.step_index += 1
+
+   
+
