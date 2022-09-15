@@ -25,6 +25,7 @@ class Obstacle_Manager:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
                 print("Murio")
+                print(game.game_speed)
                 pygame.time.delay(1000)
                 game.death_count += 1
                 game.playing = False

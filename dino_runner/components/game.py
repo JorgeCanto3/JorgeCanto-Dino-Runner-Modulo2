@@ -1,6 +1,7 @@
 import pygame
 
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE
+
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import Obstacle_Manager
 from dino_runner.components.obstacles.cloud import Cloud
@@ -22,14 +23,12 @@ class Game:
         self.running = False
         self.score = 0
         self.death_count = 0
-        self.game_over = False
-        
+
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
-                self.score = 0
-                self.game_speed = 20
+                self.game_over = True
                 self.show_menu()
         pygame.display.quit()
         pygame.quit()
@@ -102,25 +101,6 @@ class Game:
         text_rec.center = (half_screen_width, half_screen_heigh)
         self.screen.blit(text, text_rec)
 
-    def death_text(self):
-        self.screen.fill((255, 255, 255))
-        half_screen_heigh = 220
-        half_screen_width = 550
-
-        font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render("You Died", True, (0, 0, 0))
-        score = font.render(f"Score: {self.score}", True, (0, 0, 0))
-        death_count = font.render(f"Deaths: {self.death_count}", True, (0, 0, 0))
-        score_rec = score.get_rect()
-        score_rec.center = (half_screen_width, half_screen_heigh + 50)
-        death_count_rec = death_count.get_rect()
-        death_count_rec.center = (half_screen_width, half_screen_heigh + 100)
-        text_rec = text.get_rect()
-        text_rec.center = (half_screen_width, half_screen_heigh)
-        self.screen.blit(text, text_rec)
-        self.screen.blit(score, score_rec)
-        self.screen.blit(death_count ,death_count_rec)
-
     def show_menu(self):
         print(self.death_count)
         self.screen.fill((255, 255, 255))
@@ -129,12 +109,16 @@ class Game:
 
         if self.death_count == 0:
             self.generate_text("Press any key to play...",  550,550 // 2)
-            self.screen.blit(ICON, (half_screen_width - 20, half_screen_heigh - 140))
+            self.screen.blit(ICON, (half_screen_width - 40, half_screen_heigh - 140))
         else:
-            #Reinicio del Score
-            self.death_text()
-            self.screen.blit(ICON,( half_screen_width - 40, half_screen_heigh - 200))
-           
+            self.generate_text("You Died",  half_screen_width , half_screen_heigh - 30)
+            self.generate_text(f"Score: {self.score}",  half_screen_width, half_screen_heigh)
+            self.generate_text(f"Deaths: {self.death_count}", half_screen_width, half_screen_heigh+30)
+            self.screen.blit(ICON,( half_screen_width - 40, half_screen_heigh - 150))
+            self.reset_score()
+            
         pygame.display.update()
         self.handle_events_on_menu()
 
+    def reset_score(self):
+        self.score = 0
