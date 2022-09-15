@@ -35,6 +35,7 @@ class Game:
 
     def run(self):
         # Game loop: events - update - draw
+        self.reset_score()
         self.obstacle_manager.reset_obstacles()
         self.playing = True
         while self.playing:
@@ -115,8 +116,6 @@ class Game:
             self.generate_text(f"Score: {self.score}",  half_screen_width, half_screen_heigh)
             self.generate_text(f"Deaths: {self.death_count}", half_screen_width, half_screen_heigh+30)
             self.screen.blit(ICON,( half_screen_width - 40, half_screen_heigh - 150))
-            self.reset_score()
-            
         pygame.display.update()
         self.handle_events_on_menu()
 
