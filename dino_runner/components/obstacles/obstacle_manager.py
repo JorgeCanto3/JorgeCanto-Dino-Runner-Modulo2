@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS,BIRD
+from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, SHIELD_TYPE, HAMMER_TYPE
 from dino_runner.components.obstacles.Cactus import Cactus
 from dino_runner.components.obstacles.bird import bird
 class Obstacle_Manager:
@@ -24,12 +24,14 @@ class Obstacle_Manager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                print("Murio")
-                print(game.game_speed)
-                pygame.time.delay(1000)
-                game.death_count += 1
-                game.playing = False
-                break
+                if game.player.type != SHIELD_TYPE or HAMMER_TYPE:
+                    print("Soy la velocidad Final: ", game.game_speed)
+                    pygame.time.delay(1000)
+                    game.death_count += 1
+                    game.playing = False
+                    break
+                else:
+                    self.obstacles.remove(obstacle)
 
     def draw(self,screen):
         for obstacle in self.obstacles:
