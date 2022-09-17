@@ -1,9 +1,10 @@
 import pygame
 import random
 
-from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, SHIELD_TYPE, HAMMER_TYPE
+from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD, SHIELD_TYPE, HAMMER_TYPE,  END_SOUND,HIT_SOUND
 from dino_runner.components.obstacles.Cactus import Cactus
 from dino_runner.components.obstacles.bird import bird
+
 class Obstacle_Manager:
     def __init__(self):
         self.obstacles = []
@@ -24,12 +25,14 @@ class Obstacle_Manager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                if game.player.type != SHIELD_TYPE or HAMMER_TYPE:
-                    print("Soy la velocidad Final: ", game.game_speed)
-                    pygame.time.delay(1000)
-                    game.death_count += 1
-                    game.playing = False
-                    break
+                if game.player.type != SHIELD_TYPE and game.player.type != HAMMER_TYPE:
+                     print("Soy la velocidad Final: ", game.game_speed)
+                     HIT_SOUND.play(0)
+                     pygame.time.delay(1000)
+                     game.death_count += 1
+                     game.playing = False
+                     END_SOUND.play(0)
+                     break
                 else:
                     self.obstacles.remove(obstacle)
 

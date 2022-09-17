@@ -1,6 +1,6 @@
 import pygame
 
-from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, RUNNING_SHIELD, SHIELD_TYPE,JUMPING_SHIELD, DEFAULT_TYPE, DUCKING_SHIELD, DUCKING_HAMMER, JUMPING_HAMMER, RUNNING_HAMMER, HAMMER_TYPE, DUCKING_HAMMER
+from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, RUNNING_SHIELD, SHIELD_TYPE,JUMPING_SHIELD, DEFAULT_TYPE, DUCKING_SHIELD, DUCKING_HAMMER, JUMPING_HAMMER, RUNNING_HAMMER, HAMMER_TYPE, DUCKING_HAMMER, JUMP_SOUND
 
 DUCK_IMG = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
 JUMP_IMG = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
@@ -37,6 +37,7 @@ class Dinosaur:
             self.duck()
 
         if user_input[pygame.K_UP] and not self.dino_jump:
+            JUMP_SOUND.play()
             self.dino_jump = True
             self.dino_run = False
             self.dino_duck = False

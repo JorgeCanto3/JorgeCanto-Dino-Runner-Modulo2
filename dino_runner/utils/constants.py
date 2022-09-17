@@ -1,6 +1,8 @@
 import pygame
 import os
 
+pygame.mixer.init()
+
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
@@ -11,6 +13,12 @@ IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
 RESET = pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))
+
+SHIELD_SOUND= pygame.mixer.Sound(os.path.join(IMG_DIR, 'Sounds/Shield_Halo.wav'))
+HAMMER_SOUND= pygame.mixer.Sound(os.path.join(IMG_DIR, 'Sounds/Martillo_de_mario.wav'))
+JUMP_SOUND = pygame.mixer.Sound(os.path.join(IMG_DIR, 'Sounds/MARIO_JUMPING.wav'))
+END_SOUND = pygame.mixer.Sound(os.path.join(IMG_DIR, 'Sounds/END_GAME.wav'))
+HIT_SOUND = pygame.mixer.Sound(os.path.join(IMG_DIR, 'Sounds/DINO_HIT.wav'))
 
 
 RUNNING = [
